@@ -30,9 +30,13 @@ public class MainCommand implements CommandExecutor {
 						if(target != null) {
 							if(!target.hasPermission("orbitalcannon.bypass")) {
 								int power = CustomConfig.get().getInt("OrbitalCannon.Power");
+								int lightningcount = CustomConfig.get().getInt("OrbitalCannon.LightningCount");
 								
 								target.sendMessage("§b" + player.getName() + " §cattacked you with an Orbital Cannon!");
 								player.sendMessage("§cYou striked §b" + target.getName() + " §cwith an Orbital Cannon!");
+								for(int i = 0; i <= lightningcount; i++) {
+									target.getWorld().strikeLightning(target.getLocation());
+								}
 								target.getWorld().createExplosion(target.getLocation(), power);
 							} else {
 								player.sendMessage("§cOrbitalCannon §8>> §cThis player is protected against Orbital Cannons!");
@@ -63,10 +67,24 @@ public class MainCommand implements CommandExecutor {
 					} else {
 						player.sendMessage("§cOrbitalCannon §8>> §cYou dont have Permission to change the power of the Orbital Cannon!");
 					}
+				} else if(args[0].equalsIgnoreCase("setlightningcount")) {
+					if(player.hasPermission("OrbitalCannon.setlightningcount")) {
+						if(StringUtils.isStrictlyNumeric(args[1])) {
+							
+							CustomConfig.get().set("OrbitalCannon.LightningCount", args[1]);
+							CustomConfig.save();
+							
+							player.sendMessage("§cOrbital Cannon §8>> §aYou changed the numer of Lightnings of the Orbital Cannon to §b" + args[1] + "§a!");
+						}
+					}
 				}
 			} else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("reload")) {
-					CustomConfig.setup();
+					if(player.hasPermission("OrbitalCannon.reload")) {
+						player.sendMessage("§cOrbitalCannon §8>> §aReloading config files...");
+						CustomConfig.setup();
+						player.sendMessage("§cOrbitalCannon §8>> §aReload complete!");
+					}
 				}
 			}
 		} else {

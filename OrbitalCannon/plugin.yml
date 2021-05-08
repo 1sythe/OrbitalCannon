@@ -1,6 +1,6 @@
 name: OrbitalCannon
 author: Infernoxx
 main: de.infernoxx.orbitalcannon.main.Main
-version: 2.1
+version: 2.3
 commands:
   orbitalcannon:

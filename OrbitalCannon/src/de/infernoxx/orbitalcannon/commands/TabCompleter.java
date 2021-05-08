@@ -17,13 +17,14 @@ public class TabCompleter implements org.bukkit.command.TabCompleter {
 			strings.add("setpower");
 			strings.add("strike");
 			strings.add("reload");
+			strings.add("setlightningcount");
 		} else if(args.length == 2) {
 			for(Player p : Bukkit.getOnlinePlayers()) {
 				strings.add(p.getDisplayName());
 			}
 		}
 		
-		return null;
+		return strings;
 	}
 	
 	

@@ -5,6 +5,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.infernoxx.orbitalcannon.commands.MainCommand;
+import de.infernoxx.orbitalcannon.commands.TabCompleter;
 import de.infernoxx.orbitalcannon.utils.CustomConfig;
 
 public class Main extends JavaPlugin {
@@ -25,6 +26,7 @@ public class Main extends JavaPlugin {
 		CustomConfig.save();
 		
 		getCommand("orbitalcannon").setExecutor(new MainCommand());
+		getCommand("orbitalcannon").setTabCompleter(new TabCompleter());
 	}
 	
 }
