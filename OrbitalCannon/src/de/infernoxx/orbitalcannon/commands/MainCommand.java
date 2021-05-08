@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import com.mysql.jdbc.StringUtils;
 
 import de.infernoxx.orbitalcannon.main.Main;
+import de.infernoxx.orbitalcannon.utils.CustomConfig;
 
 public class MainCommand implements CommandExecutor {
 
@@ -21,14 +22,14 @@ public class MainCommand implements CommandExecutor {
 			
 			if(args.length == 0) {
 				player.sendMessage("§cOrbitalCannon §7| §6Information");
+				player.sendMessage("§b/");
 			} else if(args.length == 2) {
 				if(args[0].equalsIgnoreCase("strike")) {
 					if(player.hasPermission("orbitalcannon.strike")) {
 						Player target = Bukkit.getPlayer(args[1]);
 						if(target != null) {
 							if(!target.hasPermission("orbitalcannon.bypass")) {
-								FileConfiguration config = Main.getPlugin(null).getConfig();
-								int power = config.getInt("OrbitalCannon.Power");
+								int power = CustomConfig.get().getInt("OrbitalCannon.Power");
 								
 								target.sendMessage("§b" + player.getName() + " §cattacked you with an Orbital Cannon!");
 								player.sendMessage("§cYou striked §b" + target.getName() + " §cwith an Orbital Cannon!");
@@ -46,11 +47,8 @@ public class MainCommand implements CommandExecutor {
 					if(player.hasPermission("orbitalcannon.setpower")) {
 						if(StringUtils.isStrictlyNumeric(args[1])) {
 							
-							
-							
-							FileConfiguration config = Main // get plugin
-							config.set("OrbitalCannon.Power", args[1]);
-							// save config
+							CustomConfig.get().set("OrbitalCannon.Power", args[1]);
+							CustomConfig.save();
 							
 							player.sendMessage("§cOrbital Cannon §8>> §aYou changed the Power of the Orbital Cannon to §b" + args[1] + "§a!");
 							
@@ -65,6 +63,10 @@ public class MainCommand implements CommandExecutor {
 					} else {
 						player.sendMessage("§cOrbitalCannon §8>> §cYou dont have Permission to change the power of the Orbital Cannon!");
 					}
+				}
+			} else if(args.length == 1) {
+				if(args[0].equalsIgnoreCase("reload")) {
+					CustomConfig.setup();
 				}
 			}
 		} else {
