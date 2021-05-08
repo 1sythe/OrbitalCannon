@@ -1,0 +1,6 @@
+name: OrbitalCannon
+author: Infernoxx
+main: de.infernoxx.orbitalcannon.main.Main
+version: 2.0
+commands:
+  orbitalcannon:
